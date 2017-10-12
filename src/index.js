@@ -10,7 +10,7 @@ const store = createStore(reducer,
 )
 
 
-ReactDOM.render(<App />,
+ReactDOM.render(<App store={store} />,
   document.getElementById('root')
   )
 registerServiceWorker()
