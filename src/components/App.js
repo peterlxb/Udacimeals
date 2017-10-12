@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-
+import { connect } from 'react-redux'
 
 class APP extends Component {
 
 
 
   render() {
+    console.log(this.props)
     return (
       <div>
         Hello World
@@ -14,4 +15,22 @@ class APP extends Component {
   }
 }
 
-export default APP
+function mapStateToProps(calendar) {
+
+  const dayOrder = {'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'}
+
+  return {
+    calendar: dayOrder.map((day) => ({
+      day,
+      meals: Object.keys(calendar[day]).reduce((meals,meal) => {
+        meals[meal] = calendar[day][meal]
+          ? calendar[day][meal]
+          : null
+
+        return meals
+      },{})
+    }))
+  }
+}
+
+export default connect(mapStateToProps,)(APP)
